@@ -7,6 +7,7 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import ElementClickInterceptedException
 import os
+import json
 
 class web_scrapping_vendas:
     def raspagem_de_dados():
@@ -28,7 +29,7 @@ class web_scrapping_vendas:
             shopping.click()
             sleep(3)
             price = browser.find_element("name", "upper")
-            price.send_keys("2000")
+            price.send_keys("1800")
             sleep(2)
             send_price = browser.find_element(By.CLASS_NAME, "sh-dr__prs")
             send_price.click()
@@ -46,18 +47,20 @@ class web_scrapping_vendas:
                 new_item['link'] = (
                     refrigerator.find_element(By.TAG_NAME, "a").get_attribute("href")
                 )
-                new_item['price'] = (
-                    refrigerator.find_element(By.XPATH, "//span/b").text
-                )
-                new_item['name_store'] = (
-                    refrigerator.find_element(By.XPATH, "/html/body/div[5]/div/div[4]/div[3]/div/div[3]/div[1]/g-scrolling-carousel/div[1]/div/div/div[1]/a/div[2]/div/div[2]/span").text
-                )
+                # new_item['price'] = (
+                #     refrigerator.find_element(By.XPATH, "//span/b").text
+                # )
+                # new_item['name_store'] = (
+                #     refrigerator.find_element(By.XPATH, "/html/body/div[5]/div/div[4]/div[3]/div/div[3]/div[1]/g-scrolling-carousel/div[1]/div/div/div[1]/a/div[2]/div/div[2]/span").text
+                # )
                 new_item['img'] = (
                     refrigerator.find_element(By.TAG_NAME, "img").get_attribute("src")
                 )
                 items.append(new_item)
 
             print(items)
+            with(open("sales_refrigerator.json", mode="w")) as file:
+                json.dump(items, file, indent=4)
             print(color("Page Title is : %s" %browser.title), 'green')
             input(color("Enter para sair", 'red'))
             browser.quit()
@@ -101,7 +104,7 @@ class web_scrapping_vendas:
             element.click()
             sleep(2)
             sendMessage = driver.find_element(By.XPATH, "/html/body/div[1]/div/div[2]/div[4]/div/footer/div[1]/div/span[2]/div/div[2]/div[1]")
-            name = "testando api para ver se vai dar certo"
+            name = "api test"
             for i in name:
                 sendMessage.send_keys(i)
 

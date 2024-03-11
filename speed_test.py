@@ -1,6 +1,5 @@
 from time import sleep
 from selenium import webdriver
-from termcolor import colored as corzinha
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
